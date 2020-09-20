@@ -31,7 +31,11 @@ module "ec2_cluster" {
   monitoring             = var.ec2.is_monitor
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
-
+  user_data = var.ec2.user_data 
+  provisioner "file" {
+    source      = "index.html"
+    destination = "/var/www/html/index.html"
+  }
   tags = {
     Terraform   = "true"
     Environment = "dev"
@@ -41,9 +45,8 @@ module "ec2_cluster" {
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
-  name        = var.sg.name
-  description = "Security group for web-server with HTTP ports open within VPC"
-  vpc_id      = module.vpc.vpc_id
-
+  name                = var.sg.name
+  description         = "Security group for web-server with HTTP ports open within VPC"
+  vpc_id              = module.vpc.vpc_id
   ingress_cidr_blocks = var.sg.ingress
 }
