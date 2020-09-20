@@ -61,12 +61,3 @@ module "web_server_sg" {
   vpc_id              = module.vpc.vpc_id
   ingress_cidr_blocks = var.sg.ingress
 }
-
-resource "aws_db_subnet_group" "dbsubgroup" {
-  name       = var.dbsub_name
-  subnet_ids = var.vpc.private
-tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
-}
