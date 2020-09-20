@@ -9,7 +9,8 @@ module "vpc" {
   public_subnets  = var.vpc.public
 
   #Database Subnet Group
-  create_database_subnet_group = true
+  create_database_subnet_group       = true
+  create_database_subnet_route_table = true
 
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -18,7 +19,7 @@ module "vpc" {
   enable_nat_gateway     = true
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
-  
+
   # VPC endpoint for S3
   enable_s3_endpoint = true
 
