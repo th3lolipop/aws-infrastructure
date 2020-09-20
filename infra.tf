@@ -27,10 +27,10 @@ module "ec2_cluster" {
 
   ami                    = var.ami_id
   instance_type          = var.ins_type
-  key_name               = "k8smm"
+  key_name               = var.keyname
   monitoring             = var.is_monitor
   vpc_security_group_ids = module.web_server_sg.id
-  subnet_id              = module.vpc.private_subnets.id
+  subnet_id              = module.vpc.public_subnets.id
 
   tags = {
     Terraform   = "true"

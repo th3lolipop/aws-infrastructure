@@ -48,7 +48,13 @@ variable "is_monitor" {
   description = "Monitoring On"
 }
 
-vairable "ins_type" {
+variable "ins_type" {
   type        = string
   description = "AWS Instance Type"
+}
+
+variable "keyname" {
+  type        = string
+default = "k8smm"
+  description = "Key Pair Name"
 }
