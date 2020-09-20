@@ -19,11 +19,11 @@ module "vpc" {
 }
 
 module "ec2_cluster" {
-  source                 = "terraform-aws-modules/ec2-instance/aws"
-  version                = "~> 2.0"
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 2.0"
 
-  name                   = "instance"
-  instance_count         = 4
+  name           = "instance"
+  instance_count = 4
 
   ami                    = var.ami_id
   instance_type          = var.ins_type
@@ -43,7 +43,7 @@ module "web_server_sg" {
 
   name        = "web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
-  vpc_id      =  module.vpc.vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 }
