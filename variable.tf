@@ -38,7 +38,7 @@ variable "sg" {
   description = "ALL IN ONE SG VARIABLES"
 }
 
-variable "db_subnet_gp" {
+variable "dbsub" {
   type = object({
     name = string
   })

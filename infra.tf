@@ -63,6 +63,6 @@ module "web_server_sg" {
 }
 
 resource "aws_db_subnet_group" "db_subnet_gp" {
-  name       = var.db_subnet_gp.name
+  name       = var.dbsub.name
   subnet_ids = var.vpc.private
 }
