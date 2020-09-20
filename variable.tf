@@ -36,3 +36,19 @@ variable "aws" {
   })
 	description = "The AWS credential"
 }
+
+variable "ami_id" {
+	type = string
+	description = "AMI ID"
+}
+
+variable "is_monitor" {
+	type = bool
+	default = true
+	description = "Monitoring On"
+}
+
+vairable "ins_type" {
+	type = string
+	description = "AWS Instance Type"
+}
