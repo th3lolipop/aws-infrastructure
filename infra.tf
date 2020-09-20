@@ -32,16 +32,11 @@ module "ec2_cluster" {
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
   user_data              = "${"file(install_nginx.sh)"}"
-  provisioner "file" {
-    source      = "index.html"
-    destination = "/var/www/html/index.html"
-
-  }
-  connection {
-    user        = "ubuntu"
-    host        = "${aws_instance.this.public_ip}"
-    private_key = "${"file("~/Documents/OpsLAB/KeyPairs/k8smm.pem")"}"
-  }
+#  provisioner "file" {
+#    source      = "index.html"
+#    destination = "/var/www/html/index.html"
+#
+# }
   tags = {
     Terraform   = "true"
     Environment = "dev"
