@@ -9,7 +9,7 @@ module "vpc" {
   public_subnets  = var.vpc.public
 
   #Database Subnet Group
-  create_database_subnet_group = false
+  create_database_subnet_group = true
 
   enable_dns_hostnames = true
   enable_dns_support   = true
