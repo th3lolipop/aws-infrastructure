@@ -10,7 +10,7 @@ variable "cidr" {
     
 }
 
-vairable "azs" {
+variable "azs" {
 	type = list(string)
 	default = ["ap-southeast-1a", "ap-southeast-1b"]
 	description = "List of Availability Zones"
