@@ -61,3 +61,8 @@ module "web_server_sg" {
   vpc_id              = module.vpc.vpc_id
   ingress_cidr_blocks = var.sg.ingress
 }
+
+resource "aws_db_subnet_group" "db_subnet_gp" {
+  name       = var.db_subnet_gp.name
+  subnet_ids = [module.vpc.private_subnets]
+}

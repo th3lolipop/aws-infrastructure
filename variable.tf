@@ -37,3 +37,10 @@ variable "sg" {
   })
   description = "ALL IN ONE SG VARIABLES"
 }
+
+variable "db_subnet_gp" {
+  type = object({
+    name = string
+  })
+  description = "ALL IN ONE DB SUBNET GROUP VARIABLES"
+}
