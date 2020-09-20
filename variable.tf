@@ -38,9 +38,8 @@ variable "sg" {
   description = "ALL IN ONE SG VARIABLES"
 }
 
-variable "dbsub" {
-  type = object({
-    name = string
-  })
+variable "dbsub_name" {
+  type        = string
+  default     = "Database Private Subnet Group"
   description = "ALL IN ONE DB SUBNET GROUP VARIABLES"
 }
