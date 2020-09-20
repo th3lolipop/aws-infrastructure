@@ -29,8 +29,8 @@ module "ec2_cluster" {
   instance_type          = var.ins_type
   key_name               = var.keyname
   monitoring             = var.is_monitor
-  vpc_security_group_ids = module.web_server_sg.web_server_sg_id
-  subnet_id              = module.vpc.public_subnets_id
+  vpc_security_group_ids = module.web_server_sg.this_security_group_id
+  subnet_id              = module.vpc.public_subnets.id
 
   tags = {
     Terraform   = "true"
