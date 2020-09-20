@@ -63,6 +63,10 @@ module "web_server_sg" {
 }
 
 resource "aws_db_subnet_group" "dbsubgroup" {
-  name       = var.dbsub.name
+  name       = var.dbsub_name
   subnet_ids = var.vpc.private
+tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
