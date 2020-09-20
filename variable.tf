@@ -2,7 +2,7 @@ variable "vpc" {
   type = object({
     name    = string
     cidr    = string
-    azs     = list(sting)
+    azs     = list(string)
     private = list(string)
     public  = list(string)
   })
