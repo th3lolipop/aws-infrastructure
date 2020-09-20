@@ -35,6 +35,12 @@ module "ec2_cluster" {
   provisioner "file" {
     source      = "index.html"
     destination = "/var/www/html/index.html"
+
+  }
+  connection {
+    user        = "ubuntu"
+    host        = "${aws_instance.this.public_ip}"
+    private_key = "${"file("~/Documents/OpsLAB/KeyPairs/k8smm.pem")"}"
   }
   tags = {
     Terraform   = "true"
