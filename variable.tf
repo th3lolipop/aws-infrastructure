@@ -1,31 +1,12 @@
-variable "name" {
-  type        = string
-  description = "AWS VPC NAME"
-}
-
-variable "cidr" {
-  default     = "10.0.0.0/16"
-  type        = string
-  description = "VPC CIDR BLOCK"
-
-}
-
-variable "azs" {
-  type        = list(string)
-  default     = ["ap-southeast-1a", "ap-southeast-1b"]
-  description = "List of Availability Zones"
-}
-
-variable "private" {
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
-  description = "Private Subnet CIDR"
-}
-
-variable "public" {
-  type        = list(string)
-  default     = ["10.0.3.0/24", "10.0.4.0/24"]
-  description = "Public Subnet CIDR"
+variable "vpc" {
+  type = object({
+    name    = string
+    cidr    = string
+    azs     = list(sting)
+    private = list(string)
+    public  = list(string)
+  })
+  description = "ALL IN ONE VPC VARIABLES"
 }
 
 variable "aws" {
@@ -37,24 +18,22 @@ variable "aws" {
   description = "The AWS credential"
 }
 
-variable "ami_id" {
-  type        = string
-  description = "AMI ID"
+variable "ec2" {
+  type = object({
+    name       = string
+    ami_id     = string
+    is_monitor = bool
+    ins_type   = string
+    ins_count  = number
+    keyname    = string
+  })
+  description = "ALL IN ONE EC2 VARIABLES"
 }
 
-variable "is_monitor" {
-  type        = bool
-  default     = true
-  description = "Monitoring On"
-}
-
-variable "ins_type" {
-  type        = string
-  description = "AWS Instance Type"
-}
-
-variable "keyname" {
-  type        = string
-default = "k8smm"
-  description = "Key Pair Name"
+variable "sg" {
+  type = object({
+    name    = string
+    ingress = list(string)
+  })
+  description = "ALL IN ONE SG VARIABLES"
 }

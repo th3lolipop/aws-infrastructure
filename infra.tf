@@ -1,12 +1,12 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = var.name
-  cidr = var.cidr
+  name = var.vpc.name
+  cidr = var.vpc.cidr
 
-  azs             = var.azs
-  private_subnets = var.private
-  public_subnets  = var.public
+  azs             = var.vpc.azs
+  private_subnets = var.vpc.private
+  public_subnets  = var.vpc.public
 
   enable_nat_gateway     = true
   single_nat_gateway     = true
@@ -22,13 +22,13 @@ module "ec2_cluster" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 2.0"
 
-  name           = "instance"
-  instance_count = 4
+  name           = var.ec2.name
+  instance_count = var.ec2.ins_count
 
-  ami                    = var.ami_id
-  instance_type          = var.ins_type
-  key_name               = var.keyname
-  monitoring             = var.is_monitor
+  ami                    = var.ec2.ami_id
+  instance_type          = var.ec2.ins_type
+  key_name               = var.ec2.keyname
+  monitoring             = var.ec2.is_monitor
   vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
 
@@ -41,9 +41,9 @@ module "ec2_cluster" {
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
-  name        = "web-server"
+  name        = var.sg.name
   description = "Security group for web-server with HTTP ports open within VPC"
   vpc_id      = module.vpc.vpc_id
 
-  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_cidr_blocks = var.sg.ingress
 }
