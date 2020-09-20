@@ -26,6 +26,7 @@ variable "ec2" {
     ins_type   = string
     ins_count  = number
     keyname    = string
+    user_data = string
   })
   description = "ALL IN ONE EC2 VARIABLES"
 }
