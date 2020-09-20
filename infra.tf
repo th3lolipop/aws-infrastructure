@@ -8,9 +8,19 @@ module "vpc" {
   private_subnets = var.vpc.private
   public_subnets  = var.vpc.public
 
+  #Database Subnet Group
+  create_database_subnet_group = false
+
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  #Single NAT Gateway
   enable_nat_gateway     = true
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
+  
+  # VPC endpoint for S3
+  enable_s3_endpoint = true
 
   tags = {
     Terraform   = "true"
