@@ -36,17 +36,6 @@ module "ec2_cluster" {
   name           = var.ec2.name
   instance_count = var.ec2.ins_count
 
-  provisioner "file" {
-    source      = "index.html"
-    destination = "/var/www/html/"
-  }
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = "${file("~/Documents/OpsLAB/KeyPairs/k8smm.pem")}"
-    host        = "module.ec2_cluster.public_ip"
-  }
-
   ami                    = var.ec2.ami_id
   instance_type          = var.ec2.ins_type
   key_name               = var.ec2.keyname
