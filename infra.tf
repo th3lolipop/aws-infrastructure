@@ -36,14 +36,24 @@ module "ec2_cluster" {
   name           = var.ec2.name
   instance_count = var.ec2.ins_count
 
+  provisioner "file" {
+    source      = "index.html"
+    destination = "/var/www/html/"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("~/Documents/OpsLAB/KeyPairs/k8smm.pem")}"
+      host        = "module.ec2_cluster.public_ip"
+    }
+  }
+
   ami                    = var.ec2.ami_id
   instance_type          = var.ec2.ins_type
   key_name               = var.ec2.keyname
   monitoring             = var.ec2.is_monitor
-  #vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
   vpc_security_group_ids = [aws_security_group.allow_ssh.id, module.web_server_sg.this_security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
-  #  user_data              = "${"file(install_nginx.sh)"}"
   user_data = data.template_file.user_data.rendered
   tags = {
     Terraform   = "true"
