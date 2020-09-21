@@ -40,7 +40,8 @@ module "ec2_cluster" {
   instance_type          = var.ec2.ins_type
   key_name               = var.ec2.keyname
   monitoring             = var.ec2.is_monitor
-  vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
+  #vpc_security_group_ids = [module.web_server_sg.this_security_group_id]
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   subnet_id              = module.vpc.public_subnets[0]
   #  user_data              = "${"file(install_nginx.sh)"}"
   user_data = data.template_file.user_data.rendered
@@ -53,6 +54,7 @@ module "ec2_cluster" {
 data "template_file" "user_data" {
   template = file("install_nginx.sh")
 }
+
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
@@ -60,4 +62,29 @@ module "web_server_sg" {
   description         = "Security group for web-server with HTTP ports open within VPC"
   vpc_id              = module.vpc.vpc_id
   ingress_cidr_blocks = var.sg.ingress
+}
+
+resource "aws_security_group" "allow_ssh" {
+  name        = "Allow SSH"
+  description = "Allow SSH inbound traffic from ANYWHERE"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    description = "SSH from public"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
 }
