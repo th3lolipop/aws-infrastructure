@@ -3,4 +3,4 @@ sudo apt update
 sudo apt install -y nginx
 sudo systemctl start nginx
 sudo systemctl enable nginx
-echo "HELLO TERRAFORM" > /var/www/html/index.html
+echo "HELLO TERRAFORM YOMAFLEET" > /var/www/html/index.html
