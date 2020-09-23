@@ -11,7 +11,7 @@ module "rds" {
   username                = var.rds.username
   password                = var.rds.password
   port                    = var.rds.port
-  vpc_security_group_ids  = "sg-00fc33d942da5041b"
+  vpc_security_group_ids  = ["sg-00fc33d942da5041b"]
   maintenance_window      = var.rds.maintenance_window
   backup_window           = var.rds.backup_window
   backup_retention_period = var.rds.backup_retention_period
