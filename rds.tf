@@ -15,7 +15,7 @@ module "rds" {
   maintenance_window      = var.rds.maintenance_window
   backup_window           = var.rds.backup_window
   backup_retention_period = var.rds.backup_retention_period
-  subnet_ids              = module.vpc.database_subnets
+  subnet_ids              = ["subnet-04d5b9528f11d38de", "subnet-07eb74b7e95485531"]
   family                  = var.rds.family
   major_engine_version    = var.rds.major_engine_version
   deletion_protection     = var.rds.is_del_protect
