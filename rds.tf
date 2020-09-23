@@ -5,7 +5,7 @@ module "rds" {
   engine                  = var.rds.engine
   engine_version          = var.rds.version
   instance_class          = var.rds.instance_class
-  storage_type	= var.rds.storage_type
+  storage_type            = var.rds.storage_type
   allocated_storage       = var.rds.storage
   storage_encrypted       = var.rds.encrypted
   name                    = var.rds.dbname
@@ -13,7 +13,7 @@ module "rds" {
   password                = var.rds.password
   port                    = var.rds.port
   multi_az                = var.rds.multi_az
-  publicly_accessible	= var.rds.public_access
+  publicly_accessible     = var.rds.public_access
   vpc_security_group_ids  = ["sg-00fc33d942da5041b"]
   maintenance_window      = var.rds.maintenance_window
   backup_window           = var.rds.backup_window

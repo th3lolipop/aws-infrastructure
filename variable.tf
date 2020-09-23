@@ -36,7 +36,7 @@ variable "rds" {
     engine                  = string
     version                 = string
     instance_class          = string
-    storage_type	= string
+    storage_type            = string
     storage                 = string
     encrypted               = bool
     dbname                  = string
@@ -44,7 +44,7 @@ variable "rds" {
     password                = string
     port                    = string
     multi_az                = bool
-    public_access	= bool
+    public_access           = bool
     maintenance_window      = string
     backup_window           = string
     backup_retention_period = number
