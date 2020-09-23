@@ -30,6 +30,31 @@ variable "ec2" {
   description = "ALL IN ONE EC2 VARIABLES"
 }
 
+variable "rds" {
+  type = object({
+    name                    = string
+    engine                  = string
+    version                 = string
+    instance_class          = string
+    storage                 = string
+    encrypted               = bool
+    dbname                  = string
+    username                = string
+    password                = string
+    port                    = string
+    maintenance_window      = string
+    backup_window           = string
+    backup_retention_period = number
+    database_subnets        = list(string)
+    family                  = string
+    major_engine_version    = string
+    is_del_protect          = bool
+    env                     = string
+    entity                  = string
+  })
+  description = "ALL IN ONE RDS VARIABLES"
+}
+
 variable "sg" {
   type = object({
     name    = string
