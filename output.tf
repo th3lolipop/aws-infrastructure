@@ -4,6 +4,6 @@ output "public_ip" {
 }
 
 output "rds_endpoint" {
-  value       = module.rds.endpoint
+  value       = module.rds.this_db_instance_endpoint
   description = "RDS Endpoint Name"
 }
