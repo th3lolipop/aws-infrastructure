@@ -29,30 +29,6 @@ module "vpc" {
   }
 }
 
-module "ec2" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 2.0"
-
-  name           = var.ec2.name
-  instance_count = var.ec2.ins_count
-
-  ami                    = var.ec2.ami_id
-  instance_type          = var.ec2.ins_type
-  key_name               = var.ec2.keyname
-  monitoring             = var.ec2.is_monitor
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id, module.web_server_sg.this_security_group_id]
-  subnet_id              = module.vpc.public_subnets[0]
-  user_data              = data.template_file.user_data.rendered
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
-}
-
-data "template_file" "user_data" {
-  template = file("install_nginx.sh")
-}
-
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
@@ -63,7 +39,6 @@ module "web_server_sg" {
 }
 
 module "ssh_security_group" {
-
   source  = "terraform-aws-modules/security-group/aws//modules/ssh"
   version = "~> 3.0"
 
@@ -72,30 +47,4 @@ module "ssh_security_group" {
   vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = var.sg.ingress
-}
-
-resource "aws_security_group" "allow_ssh" {
-  name        = "Allow SSH"
-  description = "Allow SSH inbound traffic from ANYWHERE"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    description = "SSH from public"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-    Name        = "SSH From Public"
-  }
 }
