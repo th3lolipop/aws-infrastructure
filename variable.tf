@@ -1,14 +1,3 @@
-variable "vpc" {
-  type = object({
-    name    = string
-    cidr    = string
-    azs     = list(string)
-    private = list(string)
-    public  = list(string)
-  })
-  description = "ALL IN ONE VPC VARIABLES"
-}
-
 variable "aws" {
   type = object({
     access_key = string
@@ -16,6 +5,33 @@ variable "aws" {
     region     = string
   })
   description = "The AWS credential"
+}
+
+variable "vpc" {
+  type = object({
+    name            = string
+    cidr            = string
+    azs             = list(string)
+    private         = list(string)
+    public          = list(string)
+    database        = list(string)
+    env             = string
+    owner           = string
+    db_rt_tags      = map(string)
+    pri_rt_tags     = map(string)
+    pub_rt_tags     = map(string)
+    igw_tags        = map(string)
+    natgw_tags      = map(string)
+    nateip_tags     = map(string)
+    pubsub_tags     = map(string)
+    prisub_tags     = map(string)
+    dbsub_tags      = map(string)
+    nacl_tags       = map(string)
+    db_sub_gp_tags  = map(string)
+    default_sg_tags = map(string)
+    default_sg_name = string
+  })
+  description = "ALL IN ONE VPC VARIABLES"
 }
 
 variable "ec2" {
