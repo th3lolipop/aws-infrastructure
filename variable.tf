@@ -106,6 +106,7 @@ variable "s3" {
     env           = string
     owner         = string
     project       = string
+    team          = string
   })
   description = "S3 Configurtion VARIABLES"
 }
