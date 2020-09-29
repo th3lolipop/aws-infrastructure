@@ -46,5 +46,6 @@ module "vpc" {
   tags = {
     Environment = var.vpc.env
     Owner       = var.vpc.owner
+    Team        = var.vpc.team
   }
 }

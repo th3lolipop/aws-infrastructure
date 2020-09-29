@@ -17,6 +17,7 @@ variable "vpc" {
     database        = list(string)
     env             = string
     owner           = string
+    team            = string
     db_rt_tags      = map(string)
     pri_rt_tags     = map(string)
     pub_rt_tags     = map(string)
@@ -36,12 +37,15 @@ variable "vpc" {
 
 variable "ec2" {
   type = object({
-    name       = string
-    ami_id     = string
-    is_monitor = bool
-    ins_type   = string
-    ins_count  = number
-    keyname    = string
+    name         = string
+    ami_id       = string
+    is_monitor   = bool
+    ins_type     = string
+    ins_count    = number
+    keyname      = string
+    ebs_optimize = bool
+    volume_tags  = map(string)
+
   })
   description = "ALL IN ONE EC2 VARIABLES"
 }
@@ -64,22 +68,44 @@ variable "rds" {
     maintenance_window      = string
     backup_window           = string
     backup_retention_period = number
-    db_subnet_gp_name       = string
-    database_subnets        = list(string)
-    parameter_group_name    = string
     family                  = string
     major_engine_version    = string
     is_del_protect          = bool
+    subnet_gp_create        = bool
+    allow_minor             = bool
     env                     = string
-    entity                  = string
+    owner                   = string
   })
   description = "ALL IN ONE RDS VARIABLES"
 }
 
 variable "sg" {
   type = object({
-    name    = string
-    ingress = list(string)
+    name_web   = string
+    name_admin = string
+    name_db    = string
+    ingress    = list(string)
+    egress     = list(string)
   })
   description = "ALL IN ONE SG VARIABLES"
+}
+
+variable "s3_name" {
+  default = ""
+  type    = string
+  validation {
+    condition     = can(regex("^[a-zA-Z0-9]{4,15}$", var.s3_name))
+    error_message = "Bucket name can't be include special character."
+  }
+}
+
+variable "s3" {
+  type = object({
+    is_private    = bool
+    bucket_create = bool
+    env           = string
+    owner         = string
+    project       = string
+  })
+  description = "S3 Configurtion VARIABLES"
 }

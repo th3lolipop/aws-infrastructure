@@ -4,7 +4,7 @@ data "template_file" "user_data" {
 
 module "ec2" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "~> 2.0"
+  version = "2.15.0"
 
   name           = var.ec2.name
   instance_count = var.ec2.ins_count
@@ -13,11 +13,15 @@ module "ec2" {
   instance_type          = var.ec2.ins_type
   key_name               = var.ec2.keyname
   monitoring             = var.ec2.is_monitor
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id, module.web_server_sg.this_security_group_id]
-  subnet_id              = module.vpc.public_subnets[0]
+  vpc_security_group_ids = [module.sg-web.this_security_group_id]
+  subnet_ids             = [module.vpc.public_subnets[0], module.vpc.public_subnets[1]]
   user_data              = data.template_file.user_data.rendered
+
+  #Optional Configuration
+  ebs_optimized = var.ec2.ebs_optimize
   tags = {
-    Terraform   = "true"
-    Environment = "dev"
+    Name        = var.ec2.name
+    Environment = var.vpc.env
+    Owner       = var.vpc.owner
   }
 }
