@@ -7,3 +7,8 @@ output "sqs_url" {
   value       = module.sqs.this_sqs_queue_id
   description = "The URL of AWS SQS Queue"
 }
+
+output "redis_endpoint" {
+  value       = aws_elasticache_cluster.redis.configuration_endpoint
+  description = "The Endpoint of AWS ElastiCache Redis"
+}

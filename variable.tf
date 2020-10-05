@@ -93,6 +93,7 @@ variable "sg" {
     name_api   = string
     name_admin = string
     name_db    = string
+    name_cache = string
     ingress    = list(string)
     egress     = list(string)
   })
@@ -130,4 +131,23 @@ variable "sqs" {
     team         = string
   })
   description = "SQS ALL IN ONE Configuration VARIABLES"
+}
+
+variable "ec" {
+  type = object({
+    num_cluster   = number
+    para_name     = string
+    n_type        = string
+    engine        = string
+    engine_ver    = string
+    engine_port   = string
+    auto_failover = bool
+    apply         = bool
+    name          = string
+    env           = string
+    owner         = string
+    project       = string
+    team          = string
+  })
+  description = "ElastiCache-Redis ALL IN ONE Configuration VARIABLES"
 }
