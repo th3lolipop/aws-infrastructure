@@ -1,8 +1,8 @@
-module "sg-web" {
+module "sg-api" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "3.16.0"
 
-  name = var.sg.name_web
+  name = var.sg.name_api
 
   description = "Security group for API Server"
   vpc_id      = module.vpc.vpc_id
@@ -12,7 +12,7 @@ module "sg-web" {
   egress_cidr_blocks  = var.sg.egress
   egress_rules        = ["all-all"]
   tags = {
-    Name        = var.sg.name_web
+    Name        = var.sg.name_api
     Environment = var.vpc.env
     Owner       = var.vpc.owner
   }

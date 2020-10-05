@@ -9,28 +9,37 @@ variable "aws" {
 
 variable "vpc" {
   type = object({
-    name            = string
-    cidr            = string
-    azs             = list(string)
-    private         = list(string)
-    public          = list(string)
-    database        = list(string)
-    env             = string
-    owner           = string
-    team            = string
-    db_rt_tags      = map(string)
-    pri_rt_tags     = map(string)
-    pub_rt_tags     = map(string)
-    igw_tags        = map(string)
-    natgw_tags      = map(string)
-    nateip_tags     = map(string)
-    pubsub_tags     = map(string)
-    prisub_tags     = map(string)
-    dbsub_tags      = map(string)
-    nacl_tags       = map(string)
-    db_sub_gp_tags  = map(string)
-    default_sg_tags = map(string)
-    default_sg_name = string
+    name              = string
+    cidr              = string
+    azs               = list(string)
+    private           = list(string)
+    public            = list(string)
+    database          = list(string)
+    ecache            = list(string)
+    enable_dbsubg     = bool
+    enable_dbsubrt    = bool
+    enable_cachesubg  = bool
+    enable_cachesubrt = bool
+    enable_nat        = bool
+    enable_s3ep       = bool
+    env               = string
+    owner             = string
+    team              = string
+    db_rt_tags        = map(string)
+    ecache_rt_tags    = map(string)
+    pri_rt_tags       = map(string)
+    pub_rt_tags       = map(string)
+    igw_tags          = map(string)
+    natgw_tags        = map(string)
+    nateip_tags       = map(string)
+    pubsub_tags       = map(string)
+    prisub_tags       = map(string)
+    dbsub_tags        = map(string)
+    ecachesub_tags    = map(string)
+    nacl_tags         = map(string)
+    db_sub_gp_tags    = map(string)
+    default_sg_tags   = map(string)
+    default_sg_name   = string
   })
   description = "ALL IN ONE VPC VARIABLES"
 }
@@ -81,7 +90,7 @@ variable "rds" {
 
 variable "sg" {
   type = object({
-    name_web   = string
+    name_api   = string
     name_admin = string
     name_db    = string
     ingress    = list(string)
@@ -106,7 +115,19 @@ variable "s3" {
     env           = string
     owner         = string
     project       = string
-    team          = string
   })
-  description = "S3 Configurtion VARIABLES"
+  description = "S3 Configuration VARIABLES with conditions"
+}
+
+variable "sqs" {
+  type = object({
+    name         = string
+    create       = bool
+    visible_time = number
+    env          = string
+    owner        = string
+    project      = string
+    team         = string
+  })
+  description = "SQS ALL IN ONE Configuration VARIABLES"
 }

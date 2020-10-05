@@ -10,7 +10,6 @@ module "s3-plus" {
     Environment = var.s3.env
     Owner       = var.s3.owner
     Project     = var.s3.project
-    Team        = var.s3.team
   }
 
 }

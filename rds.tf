@@ -1,6 +1,9 @@
 module "rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "2.18.0"
+  depends_on = [
+    module.vpc,
+  ]
 
   identifier     = var.rds.name
   engine         = var.rds.engine
@@ -32,8 +35,8 @@ module "rds" {
   auto_minor_version_upgrade = var.rds.allow_minor
 
   #Subnet Group
-  db_subnet_group_name   = module.vpc.database_subnet_group
-  create_db_subnet_group = var.rds.subnet_gp_create
+  #db_subnet_group_name   = module.vpc.database_subnet_group
+  #create_db_subnet_group = var.rds.subnet_gp_create
 
 
   tags = {
