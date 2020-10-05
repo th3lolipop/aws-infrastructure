@@ -105,7 +105,7 @@ variable "s3_name" {
   type    = string
   validation {
     condition     = can(regex("^[a-zA-Z0-9]{4,15}$", var.s3_name))
-    error_message = "Bucket name can't be include special character."
+    error_message = "Bucket name can't be include special character or Bucket name Invalid."
   }
 }
 
