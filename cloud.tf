@@ -1,9 +1,9 @@
 terraform {
   backend "remote" {
-    organization = "yomafleet"
+    organization = "th3lolipop"
 
     workspaces {
-      name = "yomafleet-staging"
+      name = "aws-infrastructure"
     }
   }
 }
